@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+l<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,20 +30,10 @@
       font-style: italic;
       color: #444;
     }
-    #userAnswerDisplay {
-      margin-top: 10px;
-      font-weight: bold;
-      color: darkblue;
-    }
   </style>
 </head>
-<body>
-
-  <h1>英検3級 面接練習（全15問）</h1>
-
-  <div class="question-box">
-    <p id="question" style="display:none"></p>
-    <button onclick="toggleQuestion()">👁️ Show/Hide Question</button>
+<body>  <h1>英検3級 面接練習（全15問）</h1>  <div class="question-box">
+    <p id="question">Click "Next Question" to start.</p>
     <button onclick="playQuestion()">🔊 Play</button>
     <button onclick="nextQuestion()">➡️ Next Question</button>
     <button onclick="toggleAnswer()">💡 Show/Hide Answer</button>
@@ -53,12 +42,7 @@
     <button onclick="startRecording()">🎙️ Start Recording</button>
     <button onclick="stopRecording()">⏹️ Stop</button>
     <audio id="audioPlayback" controls></audio>
-    <hr>
-    <button onclick="startRecognition()">🗣️ Speak Answer</button>
-    <p id="userAnswerDisplay">ここにあなたの答えが表示されます</p>
-  </div>
-
-  <script>
+  </div>  <script>
     const qaList = [
       { q: "Do you like English?", a: "Yes, I do. I like studying English because it’s fun." },
       { q: "What did you do last weekend?", a: "I played soccer with my friends in the park." },
@@ -70,11 +54,11 @@
       { q: "Do you have any brothers or sisters?", a: "Yes, I have one younger sister. She is very cute." },
       { q: "What season do you like the best?", a: "I like spring because the weather is nice and flowers bloom." },
       { q: "How do you go to school?", a: "I go to school by bicycle every day." },
-      { q: "Do you like animals?", a: "Yes, I like dogs because they are friendly." },
-      { q: "What is your favorite subject?", a: "My favorite subject is science because it’s interesting." },
-      { q: "Where do you want to go on vacation?", a: "I want to go to Okinawa because the sea is beautiful." },
-      { q: "Do you often watch TV?", a: "Yes, I often watch cartoons after dinner." },
-      { q: "What do you usually eat for breakfast?", a: "I usually eat toast and eggs for breakfast." }
+      { q: "What kind of music do you like?", a: "I like pop music. It makes me happy." },
+      { q: "What do you do on Sundays?", a: "I often go shopping with my family on Sundays." },
+      { q: "What subject do you like the best?", a: "I like math because it's interesting and fun." },
+      { q: "Do you like animals?", a: "Yes, I like dogs. They are friendly and cute." },
+      { q: "What sports do you like?", a: "I like basketball. I often play it with my friends." }
     ];
 
     let current = -1;
@@ -84,13 +68,6 @@
       document.getElementById('question').textContent = qaList[current].q;
       document.getElementById('answer').textContent = qaList[current].a;
       document.getElementById('answer').style.display = 'none';
-      document.getElementById('question').style.display = 'none';
-      document.getElementById('userAnswerDisplay').textContent = 'ここにあなたの答えが表示されます';
-    }
-
-    function toggleQuestion() {
-      const q = document.getElementById('question');
-      q.style.display = (q.style.display === 'none') ? 'block' : 'none';
     }
 
     function playQuestion() {
@@ -133,40 +110,5 @@
         alert("Recording stopped.");
       }
     }
-
-    // 音声認識機能
-    function startRecognition() {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const display = document.getElementById("userAnswerDisplay");
-
-      if (!SpeechRecognition) {
-        display.textContent = "このブラウザは音声認識に対応していません。";
-        return;
-      }
-
-      const recognition = new SpeechRecognition();
-      recognition.lang = "en-US";
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-
-      display.textContent = "聞き取り中... 話してください。";
-
-      recognition.start();
-
-      recognition.onresult = function(event) {
-        const transcript = event.results[0][0].transcript;
-        display.textContent = "あなたの答え: " + transcript;
-      };
-
-      recognition.onerror = function(event) {
-        display.textContent = "エラー: " + event.error;
-      };
-
-      recognition.onend = function() {
-        console.log("音声認識終了");
-      };
-    }
-  </script>
-
-</body>
+  </script></body>
 </html>
